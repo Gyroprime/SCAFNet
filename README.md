@@ -1,9 +1,5 @@
 # SCAFNet
 SCAFNet: Semantic Compensated Adaptive Fusion Network for Remote Sensing Change Detection
-https://img.shields.io/badge/Paper-IEEE%2520GRSL-blue
-https://img.shields.io/badge/License-MIT-green
-https://img.shields.io/badge/Python-3.8%252B-blue
-https://img.shields.io/badge/PyTorch-1.9%252B-orange
 
 This is the official implementation of our paper "SCAFNet: A Semantic Compensated Adaptive Fusion Network for Remote Sensing Images Change Detection".
 
@@ -46,10 +42,9 @@ conda activate scafnet
 # Install PyTorch
 conda install pytorch==1.9.0 torchvision==0.10.0 torchaudio==0.9.0 cudatoolkit=11.3 -c pytorch -c conda-forge
 
-# Install dependencies
+# Install requirements
 pip install -r requirements.txt
-Dependencies
-txt
+
 # requirements.txt
 torch>=1.9.0
 torchvision>=0.10.0
@@ -61,14 +56,9 @@ tqdm>=4.60.0
 tensorboard>=2.5.0
 albumentations>=0.5.0
 Data Preparation
-Download Datasets
-CDD Dataset: Download Link
 
-WHU-CD Dataset: Download Link
-
-Directory Structure
+# Directory Structure
 Organize your data as follows:
-
 text
 data/
 ├── CDD/
