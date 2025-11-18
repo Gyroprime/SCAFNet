@@ -91,6 +91,12 @@ Recall
 
 Overall Accuracy
 
+# Result in FLOPs、Time and Parameters
+Due to the limitation of the number of text pages, we have placed the performance results of the model on size, FLOPs, and both training and inference times in the open-source repository. 
+The compare_in_FLOPs_time_Parameters.JP shows the specific experimental results
+
+We respectfully acknowledge that SCAFNet's computational time, parameters and FLOPs is not the lowest among compared methods. However, this moderate computational investment reflects our deliberate emphasis on achieving breakthrough accuracy rather than optimizing solely for speed. The complex interactions between our novel SCM, CTFAF, and CFIM modules—while computationally demanding—were essential to overcome the fundamental challenges of semantic misalignment and pseudo-change suppression that limit current methods.
+
 # Repository Structure
 SCAFNet/
 - data_preprocess/
