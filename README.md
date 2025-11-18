@@ -34,7 +34,6 @@ PyTorch 1.9+
 
 CUDA 11.0+
 
-bash
 # Create conda environment
 conda create -n scafnet python=3.8
 conda activate scafnet
@@ -61,60 +60,23 @@ Data Preparation
 Organize your data as follows:
 text
 data/
-├── CDD/
-│   ├── train/
-│   │   ├── A/          # Time1 images (10,000)
-│   │   ├── B/          # Time2 images (10,000)
-│   │   └── label/      # Change masks (10,000)
-│   ├── val/            # 3,000 images each
-│   └── test/           # 3,000 images each
-└── WHU-CD/
-    ├── train/          # 5,947 images
-    ├── val/            # 743 images  
-    └── test/           # 744 images
-Training
-Single GPU Training
-bash
-# Train on CDD dataset
-python train.py --dataset CDD --data_dir ./data/CDD --batch_size 8 --epochs 200 --lr 0.0001 --output_dir ./outputs/cdd
+- CDD/
+  - train/
+    - A/       # Time1 images (10,000)
+    - B/       # Time2 images (10,000)
+    - label/   # Change masks (10,000)
+  - val/       # 3,000 images each
+  - test/      # 3,000 images each
+- WHU-CD/
+  - train/     # 5,947 images
+  - val/       # 743 images
+  - test/      # 744 images
 
-# Train on WHU-CD dataset  
-python train.py --dataset WHU-CD --data_dir ./data/WHU-CD --batch_size 8 --epochs 200 --lr 0.0001 --output_dir ./outputs/whu
-Multi-GPU Training
-bash
-# Train with 4 GPUs
-python -m torch.distributed.launch --nproc_per_node=4 train.py --dataset CDD --batch_size 32 --epochs 200 --distributed
-Training Script
-python
-# Example training code structure
-from models.scafnet import SCAFNet
-from data.datasets import get_dataloader
-from utils.trainer import Trainer
+# Train 
+python main_cd.py --img_size ${img_size} --checkpoint_root ${checkpoint_root} --lr_policy ${lr_policy} --split ${split} --split_val ${split_val} --net_G ${net_G} --gpu_ids ${gpus} --max_epochs ${max_epochs} --project_name ${project_name} --batch_size ${batch_size} --data_name ${data_name}  --lr ${lr} --optimizer ${optimizer}
 
-# Initialize model
-model = SCAFNet(
-    encoder_channels=[64, 128, 256, 512],
-    decoder_channels=[256, 128, 64, 32]
-)
-
-# Get data loaders
-train_loader = get_dataloader('CDD', 'train', batch_size=8)
-val_loader = get_dataloader('CDD', 'val', batch_size=8)
-
-# Train model
-trainer = Trainer(model, train_loader, val_loader)
-trainer.train(epochs=200)
-Evaluation
-Test Pre-trained Model
-bash
-# Evaluate on test set
-python test.py --dataset CDD --checkpoint ./checkpoints/scafnet_cdd_best.pth --save_dir ./results/cdd
-
-# Generate visualization
-python test.py --dataset WHU-CD --checkpoint ./checkpoints/scafnet_whu_best.pth --visualize
-Evaluation Metrics
+# Evaluation Metrics
 The code automatically computes:
-
 F1-Score
 
 IoU (Intersection over Union)
@@ -125,58 +87,37 @@ Recall
 
 Overall Accuracy
 
-Pre-trained Models
-Download our pre-trained models:
-
-Dataset	F1-Score	Download
-CDD	94.2%	scafnet_cdd.pth
-WHU-CD	92.8%	scafnet_whu.pth
-Results
-Quantitative Results
-Method	CDD (F1)	WHU-CD (F1)	Params (M)	FLOPs (G)	Inference Time (ms)
-SCAFNet	94.2%	92.8%	45.6	128.3	25.4
-BIT	91.0%	89.5%	38.2	115.7	22.1
-ChangeFormer	90.8%	88.9%	41.3	121.5	23.8
-DMINet	89.5%	87.2%	43.1	119.2	24.3
-Qualitative Results
-https://./assets/visualization.png
-
-Repository Structure
-text
+# Repository Structure
 SCAFNet/
-├── configs/                 # Configuration files
-│   ├── train_cdd.yaml
-│   └── train_whu.yaml
-├── data/                    # Data loaders and preprocessing
-│   ├── __init__.py
-│   ├── datasets.py
-│   └── transforms.py
-├── models/                  # Model definitions
-│   ├── __init__.py
-│   ├── backbone/           # Encoder backbones
-│   ├── scm.py             # Semantic Compensation Module
-│   ├── ctfaf.py           # Adaptive Fusion Module  
-│   ├── cfim.py            # Change Identification Module
-│   └── scafnet.py         # Complete SCAFNet
-├── utils/                  # Utility functions
-│   ├── __init__.py
-│   ├── losses.py          # Loss functions
-│   ├── metrics.py         # Evaluation metrics
-│   ├── trainer.py         # Training logic
-│   └── visualization.py   # Visualization tools
-├── analysis/              # Supplementary analysis
-│   ├── complexity.py      # Model complexity analysis
-│   └── ablation.py        # Ablation study scripts
-├── checkpoints/           # Model checkpoints
-├── outputs/               # Training outputs
-├── results/               # Evaluation results
-├── train.py              # Main training script
-├── test.py               # Main testing script
-├── requirements.txt      # Python dependencies
-└── README.md            # This file
-Citation
+- data_preprocess/
+  - compute_mean_std.py
+- datasets/
+  - CD_dataset.py
+  - data_utils.py
+- models/
+  - __init__.py
+  - basic_model.py
+  - BitemporalFusion.py
+  - cc_attention.py
+  - DualFusion.py
+  - evaluator.py
+  - FCTransformer.py
+  - help_funcs.py
+  - HybridModel.py
+  - losses.py
+  - networks.py
+  - resnet.py
+  - trainer.py
+- scripts/
+  - eval.sh
+  - eval_HY_CDD.sh
+  - eval_HY_WHU.sh
+  - run_baseline_SCM_CTFF_CDD.sh
+  - run_baseline_SCM_CTFF_WHU.sh
+  - run_hy_CDD.sh
+  - run_hy_WHU.sh
+# Citation
 If you use this code in your research, please cite our paper:
-
 bibtex
 @article{zhang2025scafnet,
   title={SCAFNet: A Semantic Compensated Adaptive Fusion Network for Remote Sensing Images Change Detection},
@@ -185,5 +126,5 @@ bibtex
   year={2025},
   publisher={IEEE}
 }
-License
+# License
 This project is licensed under the MIT License - see the LICENSE file for details.
