@@ -116,6 +116,8 @@ SCAFNet/
   - run_baseline_SCM_CTFF_WHU.sh
   - run_hy_CDD.sh
   - run_hy_WHU.sh
+- README.md
+- requirements.txt
 # Citation
 If you use this code in your research, please cite our paper:
 bibtex
