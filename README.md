@@ -128,6 +128,7 @@ SCAFNet/
   - run_hy_WHU.sh
 - README.md
 - requirements.txt
+- compare_in_FLOPs_time_Parameters.jpg
 # Citation
 If you use this code in your research, please cite our paper:
 bibtex
