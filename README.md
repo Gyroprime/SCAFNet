@@ -73,6 +73,10 @@ data/
   - test/      # 744 images
 
 # Train 
+We suggest using the provided scripts for training or testing.  
+
+Here is a command-line startup example provided：
+
 python main_cd.py --img_size ${img_size} --checkpoint_root ${checkpoint_root} --lr_policy ${lr_policy} --split ${split} --split_val ${split_val} --net_G ${net_G} --gpu_ids ${gpus} --max_epochs ${max_epochs} --project_name ${project_name} --batch_size ${batch_size} --data_name ${data_name}  --lr ${lr} --optimizer ${optimizer}
 
 # Evaluation Metrics
