@@ -90,6 +90,7 @@ python main_cd.py --img_size ${img_size} --checkpoint_root ${checkpoint_root} --
 
 # Evaluation Metrics
 The code automatically computes:
+
 F1-Score
 
 IoU (Intersection over Union)
