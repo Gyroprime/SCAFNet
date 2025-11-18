@@ -45,16 +45,18 @@ conda install pytorch==1.9.0 torchvision==0.10.0 torchaudio==0.9.0 cudatoolkit=1
 pip install -r requirements.txt
 
 # requirements.txt
-torch>=1.9.0
-torchvision>=0.10.0
-numpy>=1.21.0
-opencv-python>=4.5.0
-pillow>=8.3.0
-scikit-learn>=0.24.0
-tqdm>=4.60.0
-tensorboard>=2.5.0
-albumentations>=0.5.0
-Data Preparation
+einops==0.8.1
+matplotlib==3.8.3
+misc==0.0.0
+mmengine==0.10.6
+numpy==1.23.0
+Pillow==12.0.0
+thop==0.1.1.post2209072238
+timm==1.0.22
+torch==2.3.0+cu118
+torchvision==0.18.0+cu118
+tqdm==4.67.1
+ultralytics_yolo==0.0.1
 
 # Dataset
 The dataset we use is public. Here we provide a link to facilitate readers' access.
