@@ -56,6 +56,13 @@ tensorboard>=2.5.0
 albumentations>=0.5.0
 Data Preparation
 
+# Dataset
+The dataset we use is public. Here we provide a link to facilitate readers' access.
+
+CDD: https://drive.google.com/file/d/1GX656JqqOyBi_Ef0w65kDGVto-nHrNs9/edit.
+
+WHU-CD: https://gpcv.whu.edu.cn/data/building_dataset.html.
+
 # Directory Structure
 Organize your data as follows:
 text
